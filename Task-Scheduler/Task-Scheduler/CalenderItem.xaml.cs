@@ -16,16 +16,18 @@ using System.Windows.Shapes;
 namespace Task_Scheduler
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CalenderItem.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CalenderItem : UserControl
     {
-        public MainWindow()
+        string taskName;
+
+        public CalenderItem(string taskName)
         {
             InitializeComponent();
 
-            //controlCalender = new CalenderControl();
-            controlCalender.generateCalenderBoxes();
+            this.taskName = taskName;
+            lblTaskName.Content = taskName;
         }
     }
 }

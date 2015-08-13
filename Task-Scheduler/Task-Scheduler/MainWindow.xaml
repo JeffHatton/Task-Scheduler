@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:Task_Scheduler"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <!--<DockPanel DockPanel.Dock="Top">
+            <ToolBar>
+
+            </ToolBar>
+        </DockPanel>
+        <DataGrid DockPanel.Dock="Left" Name="dataGridTaskList">
+            
+        </DataGrid>-->
+        <local:CalenderControl x:Name="controlCalender" DockPanel.Dock="Top"/>
+    </DockPanel>
 </Window>
