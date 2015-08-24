@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,15 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CalenderBox.xaml">
+    <Page Include="Calendar Controls\CalenderBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CalenderControl.xaml">
+    <Page Include="Calendar Controls\CalenderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CalenderItem.xaml">
+    <Page Include="Calendar Controls\CalenderItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,21 +76,30 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CalenderBox.xaml.cs">
+    <Compile Include="CalendarItemStore.cs" />
+    <Compile Include="CalenderItem\CalendarItem.cs" />
+    <Compile Include="Calendar Controls\CalenderBox.xaml.cs">
       <DependentUpon>CalenderBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalenderControl.xaml.cs">
+    <Compile Include="Calendar Controls\CalenderControl.xaml.cs">
       <DependentUpon>CalenderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalenderItem.xaml.cs">
-      <DependentUpon>CalenderItem.xaml</DependentUpon>
+    <Compile Include="Calendar Controls\CalenderItemControl.xaml.cs">
+      <DependentUpon>CalenderItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewItem.xaml.cs">
+      <DependentUpon>NewItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

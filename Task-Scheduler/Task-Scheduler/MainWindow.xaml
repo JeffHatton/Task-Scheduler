@@ -15,6 +15,9 @@
         <DataGrid DockPanel.Dock="Left" Name="dataGridTaskList">
             
         </DataGrid>-->
-        <local:CalenderControl x:Name="controlCalender" DockPanel.Dock="Top"/>
+        <Button DockPanel.Dock="Top" Name="newButton" Click="newButton_Click" HorizontalAlignment="Left" Content="New"/>
+        <Button DockPanel.Dock="Top" Name="Loadbtn" Click="Loadbtn_Click" HorizontalAlignment="Left" Content="Load"/>
+        <Button DockPanel.Dock="Top" Name="savebtn" Click="savebtn_Click" HorizontalAlignment="Left" Content="Save"/>
+        <local:CalenderControl x:Name="controlCalender" DockPanel.Dock="Bottom"/>
     </DockPanel>
 </Window>

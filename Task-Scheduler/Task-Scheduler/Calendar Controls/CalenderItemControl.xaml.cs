@@ -18,16 +18,17 @@ namespace Task_Scheduler
     /// <summary>
     /// Interaction logic for CalenderItem.xaml
     /// </summary>
-    public partial class CalenderItem : UserControl
+    public partial class CalenderItemControl : UserControl
     {
         string taskName;
+        CalendarItem item;
 
-        public CalenderItem(string taskName)
+        public CalenderItemControl(CalendarItem item)
         {
             InitializeComponent();
 
-            this.taskName = taskName;
-            lblTaskName.Content = taskName;
+            this.item = item;
+            lblTaskName.Content = item.Name;
         }
     }
 }

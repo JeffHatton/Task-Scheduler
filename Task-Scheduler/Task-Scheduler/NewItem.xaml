@@ -1,0 +1,27 @@
+﻿<Window x:Class="Task_Scheduler.NewItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_Scheduler"
+        mc:Ignorable="d"
+        Title="NewItem" Height="300" Width="300">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label>Name</Label>
+            <TextBox Width="Auto" Name="name"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label>Details</Label>
+            <TextBox Name="Details"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label></Label>
+            <DatePicker Name="date"></DatePicker>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="OK" Name="btkOk" Click="btkOk_Click" Margin="3"/>
+            <Button Content="Cancel" Name="btkCancel" Click="btkCancel_Click" Margin="3" />
+        </StackPanel>
+    </StackPanel>
+</Window>

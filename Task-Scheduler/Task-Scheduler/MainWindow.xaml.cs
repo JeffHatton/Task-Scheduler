@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace Task_Scheduler
 {
@@ -20,12 +21,70 @@ namespace Task_Scheduler
     /// </summary>
     public partial class MainWindow : Window
     {
+        CalendarItemStore store;
+        string xmlPath;
+
         public MainWindow()
         {
             InitializeComponent();
 
             //controlCalender = new CalenderControl();
             controlCalender.generateCalenderBoxes();
+
+            store = new CalendarItemStore();
+
+            controlCalender.SetStore(ref store);
+        }
+
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewItem newItemDialog = new NewItem();
+            newItemDialog.ShowDialog();
+
+            if (newItemDialog.DialogResult.Value)
+            {
+                CalendarItem item = newItemDialog.GUIToObject();
+                store.AddItem(item);
+            }
+        }        
+
+        ~MainWindow()
+        {
+            store.saveCalenderItems(xmlPath);
+        }
+
+        private void Loadbtn_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+            DialogResult result = dialog.ShowDialog();
+
+            // OK button was pressed. 
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = dialog.SelectedPath;
+                xmlPath = path;
+                store.LoadCalenderItems(path);
+            }
+        }
+
+        private void savebtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (xmlPath == "" || xmlPath == null)
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+
+                DialogResult result = dialog.ShowDialog();
+
+                // OK button was pressed. 
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    string path = dialog.SelectedPath;
+                    xmlPath = path;
+                }
+            }
+
+            store.saveCalenderItems(xmlPath);
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderControl : UserControl
     {
+        CalendarItemStore store;
+
         Dictionary<string, CalenderBox> CalenderBoxes;
         int month;
         int year;
@@ -29,6 +31,27 @@ namespace Task_Scheduler
             InitializeComponent();
 
             CalenderBoxes = new Dictionary<string, CalenderBox>();
+        }
+
+        public void SetStore(ref CalendarItemStore store)
+        {
+            this.store = store;
+
+            store.ItemAddedEvt += Store_ItemAddedEvt;
+            store.ItemsAddedEvt += Store_ItemsAddedEvt;
+        }
+
+        private void Store_ItemsAddedEvt(List<CalendarItem> items)
+        {
+            foreach (CalendarItem item in items)
+            {
+                CalenderBoxes[item.ItemDate.ToShortDateString()].AddItem(item);
+            }
+        }
+
+        private void Store_ItemAddedEvt(CalendarItem item)
+        {
+            CalenderBoxes[item.ItemDate.ToShortDateString()].AddItem(item);
         }
 
         public void generateCalenderBoxes()
@@ -46,6 +69,7 @@ namespace Task_Scheduler
             // Day
             // 
             CalenderBoxDay.setDate(time);
+            CalenderBoxes[CalenderBoxDay.date.ToShortDateString()] = CalenderBoxDay;
 
             //
             // Month
@@ -71,7 +95,7 @@ namespace Task_Scheduler
             time = time.Subtract(new TimeSpan((int)time.DayOfWeek, 0, 0, 0));
             for (int day = 0; day < 7; day++)
             {
-                CalenderBox box = new CalenderBox(time);
+                CalenderBox box = CalenderBoxes[time.ToShortDateString()];
                 Grid.SetRow(box, 1);
                 Grid.SetColumn(box, day);
 
@@ -81,21 +105,6 @@ namespace Task_Scheduler
 
                 if (time.CompareTo(DateTime.Now) < 0) box.Background = Brushes.Gray;
             }
-        }
-
-        private void btnMonth_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnWeek_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnDay_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
