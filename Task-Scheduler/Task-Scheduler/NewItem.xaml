@@ -6,22 +6,22 @@
         xmlns:local="clr-namespace:Task_Scheduler"
         mc:Ignorable="d"
         Title="NewItem" Height="300" Width="300">
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
+    <DockPanel LastChildFill="false">
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <Label>Name</Label>
             <TextBox Width="Auto" Name="name"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <Label>Details</Label>
             <TextBox Name="Details"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">  
             <Label></Label>
-            <DatePicker Name="date"></DatePicker>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
+                <DatePicker Name="date"></DatePicker>
+        </DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="OK" Name="btkOk" Click="btkOk_Click" Margin="3"/>
             <Button Content="Cancel" Name="btkCancel" Click="btkCancel_Click" Margin="3" />
         </StackPanel>
-    </StackPanel>
+    </DockPanel>
 </Window>

@@ -27,13 +27,13 @@ namespace Task_Scheduler
         public MainWindow()
         {
             InitializeComponent();
-
-            //controlCalender = new CalenderControl();
             controlCalender.generateCalenderBoxes();
-
             store = new CalendarItemStore();
 
+            Registry.SetUpRegistry();
             controlCalender.SetStore(ref store);
+
+            store.LoadCalenderItems(Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile));
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -50,13 +50,12 @@ namespace Task_Scheduler
 
         ~MainWindow()
         {
-            store.saveCalenderItems(xmlPath);
+            store.saveCalenderItems(Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile));
         }
 
         private void Loadbtn_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-
             DialogResult result = dialog.ShowDialog();
 
             // OK button was pressed. 

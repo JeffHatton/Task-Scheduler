@@ -22,7 +22,8 @@ namespace Task_Scheduler
     {
         CalendarItemStore store;
 
-        Dictionary<string, CalenderBox> CalenderBoxes;
+        Dictionary<DateTime, CalenderBox> MonthlyCalenderBoxes;
+        Dictionary<DateTime, CalenderBox> WeeklyCalenderBoxes;
         int month;
         int year;
 
@@ -30,7 +31,8 @@ namespace Task_Scheduler
         {
             InitializeComponent();
 
-            CalenderBoxes = new Dictionary<string, CalenderBox>();
+            MonthlyCalenderBoxes = new Dictionary<DateTime, CalenderBox>();
+            WeeklyCalenderBoxes = new Dictionary<DateTime, CalenderBox>();
         }
 
         public void SetStore(ref CalendarItemStore store)
@@ -45,22 +47,28 @@ namespace Task_Scheduler
         {
             foreach (CalendarItem item in items)
             {
-                CalenderBoxes[item.ItemDate.ToShortDateString()].AddItem(item);
+		        AddItemToCalendar(item);
             }
         }
 
         private void Store_ItemAddedEvt(CalendarItem item)
         {
-            CalenderBoxes[item.ItemDate.ToShortDateString()].AddItem(item);
+            AddItemToCalendar(item);
         }
+
+	    public void AddItemToCalendar(CalendarItem item)
+	    {
+		    if (MonthlyCalenderBoxes.ContainsKey(item.ItemDate.Date)) MonthlyCalenderBoxes[item.ItemDate.Date].AddItem(item);
+		    if (WeeklyCalenderBoxes.ContainsKey(item.ItemDate.Date)) WeeklyCalenderBoxes[item.ItemDate.Date].AddItem(item);
+		    if (CalenderBoxDay.ItemDate == item.ItemDate.Date) CalenderBoxDay.AddItem(item);
+	    }
 
         public void generateCalenderBoxes()
         {
             DateTime time = DateTime.Now;
 
             month = time.Month;
-            year = time.Year;
-
+            year = time.Year;          
             DateTime currentDay = new DateTime(year, month, 1);
             DayOfWeek dayOfWeek = currentDay.DayOfWeek;
             currentDay = currentDay.Subtract(new TimeSpan((int)dayOfWeek, 0, 0, 0));
@@ -68,8 +76,7 @@ namespace Task_Scheduler
             //
             // Day
             // 
-            CalenderBoxDay.setDate(time);
-            CalenderBoxes[CalenderBoxDay.date.ToShortDateString()] = CalenderBoxDay;
+            CalenderBoxDay.setDate(time);           
 
             //
             // Month
@@ -84,7 +91,7 @@ namespace Task_Scheduler
 
                     CalenderGridMonth.Children.Add(box);
 
-                    CalenderBoxes[currentDay.ToShortDateString()] = box;
+                    MonthlyCalenderBoxes[currentDay.Date] = box;
                     currentDay = currentDay.AddDays(1);
                 }
             }
@@ -95,12 +102,12 @@ namespace Task_Scheduler
             time = time.Subtract(new TimeSpan((int)time.DayOfWeek, 0, 0, 0));
             for (int day = 0; day < 7; day++)
             {
-                CalenderBox box = CalenderBoxes[time.ToShortDateString()];
+                CalenderBox box = new CalenderBox(time);
                 Grid.SetRow(box, 1);
                 Grid.SetColumn(box, day);
-
+                
                 CalenderGridWeek.Children.Add(box);
-
+                WeeklyCalenderBoxes[box.ItemDate.Date] = box;
                 time = time.AddDays(1);
 
                 if (time.CompareTo(DateTime.Now) < 0) box.Background = Brushes.Gray;

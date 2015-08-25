@@ -24,6 +24,8 @@ namespace Task_Scheduler
 
         public List<DateTime> WorkAssigned;
 
+        public bool done;
+
         public CalendarItem()
         {
             Name = "";

@@ -19,10 +19,11 @@ namespace Task_Scheduler
     /// </summary>
     public partial class NewItem : Window
     {
-
         public NewItem()
         {
             InitializeComponent();
+
+            date.SelectedDate = DateTime.Now;
         }
 
         private void btkOk_Click(object sender, RoutedEventArgs e)
@@ -39,7 +40,7 @@ namespace Task_Scheduler
         {
             CalendarItem item = new CalendarItem();
             item.Details = Details.Text;
-            item.ItemDate = date.SelectedDate.Value;
+            item.ItemDate = date.SelectedDate.Value; 
             item.Name = name.Text;
 
             return item;

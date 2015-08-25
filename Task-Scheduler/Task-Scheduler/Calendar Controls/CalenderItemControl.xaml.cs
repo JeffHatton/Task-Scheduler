@@ -20,8 +20,7 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderItemControl : UserControl
     {
-        string taskName;
-        CalendarItem item;
+        CalendarItem item;        
 
         public CalenderItemControl(CalendarItem item)
         {
@@ -29,6 +28,11 @@ namespace Task_Scheduler
 
             this.item = item;
             lblTaskName.Content = item.Name;
+        }
+
+        private void doneChk_Checked(object sender, RoutedEventArgs e)
+        {
+            item.done = (sender as CheckBox).IsChecked.Value;
         }
     }
 }

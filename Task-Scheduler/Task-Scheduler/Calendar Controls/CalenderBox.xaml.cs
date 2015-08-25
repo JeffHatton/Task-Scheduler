@@ -20,8 +20,8 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderBox : UserControl
     {
-        public DateTime date;
-        Dictionary<int, CalenderItemControl> calenderItems;
+        public DateTime ItemDate;
+        Dictionary<int, CalenderItemControl> calenderItems = new Dictionary<int, CalenderItemControl>();
 
         public CalenderBox()
         {
@@ -33,7 +33,6 @@ namespace Task_Scheduler
             InitializeComponent();
 
             setDate(date);
-            calenderItems = new Dictionary<int, CalenderItemControl>();
 
             addCalenderItemsToBox();
         }
@@ -50,7 +49,7 @@ namespace Task_Scheduler
 
         public void setDate(DateTime date)
         {
-            this.date = date;
+            this.ItemDate = date.Date;
             lblDate.Content = date.Day;
         }
 

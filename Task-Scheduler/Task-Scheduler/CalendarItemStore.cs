@@ -26,6 +26,8 @@ namespace Task_Scheduler
 
         public void saveCalenderItems(string xmlPath)
         {
+            if (xmlPath == null) return;
+
             //TODO implement
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -37,7 +39,7 @@ namespace Task_Scheduler
             string xml = "<Items>";
             foreach (CalendarItem item in CalendarItems.Values)
             {
-                xml += "\n" + item.ToXML();
+                if (!item.done) xml += "\n" + item.ToXML();
             }
 
             xml += "\n</Items>";
