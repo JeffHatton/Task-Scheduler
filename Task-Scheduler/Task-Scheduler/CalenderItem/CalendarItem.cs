@@ -10,7 +10,8 @@ namespace Task_Scheduler
     public enum CalendarItemType
     {
         Event,
-        Task
+        Work,
+        DueDate
     }
 
     public class CalendarItem
