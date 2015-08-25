@@ -17,9 +17,12 @@ namespace Task_Scheduler
     /// <summary>
     /// Interaction logic for NewItem.xaml
     /// </summary>
-    public partial class NewItem : Window
+    public partial class CalenderItemDetailDialog : Window
     {
-        public NewItem()
+        bool _ReadOnly;
+        public bool ReadOnly { get { return _ReadOnly; } set { SetReadonly(value); } }
+
+        public CalenderItemDetailDialog()
         {
             InitializeComponent();
 
@@ -36,14 +39,31 @@ namespace Task_Scheduler
             DialogResult = false;
         }
 
-        public CalendarItem GUIToObject()
+        public CalenderItemDto GUIToObject()
         {
-            CalendarItem item = new CalendarItem();
+            CalenderItemDto item = new CalenderItemDto();
             item.Details = Details.Text;
             item.ItemDate = date.SelectedDate.Value; 
             item.Name = name.Text;
 
             return item;
+        }
+
+        public void ApplyDtoToGUI(CalenderItemDto dto, bool editable = false)
+        {
+            ReadOnly = !editable;
+            Details.Text = dto.Details;
+            name.Text = dto.Name;
+            date.SelectedDate = dto.ItemDate;
+        }
+
+        public void SetReadonly(bool Readonly)
+        {
+            _ReadOnly = Readonly;
+
+            name.IsEnabled = !Readonly;
+            Details.IsEnabled = !Readonly;
+            date.IsEnabled = !Readonly;
         }
     }
 }

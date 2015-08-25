@@ -43,20 +43,20 @@ namespace Task_Scheduler
             store.ItemsAddedEvt += Store_ItemsAddedEvt;
         }
 
-        private void Store_ItemsAddedEvt(List<CalendarItem> items)
+        private void Store_ItemsAddedEvt(List<CalenderItemDto> items)
         {
-            foreach (CalendarItem item in items)
+            foreach (CalenderItemDto item in items)
             {
 		        AddItemToCalendar(item);
             }
         }
 
-        private void Store_ItemAddedEvt(CalendarItem item)
+        private void Store_ItemAddedEvt(CalenderItemDto item)
         {
             AddItemToCalendar(item);
         }
 
-	    public void AddItemToCalendar(CalendarItem item)
+	    public void AddItemToCalendar(CalenderItemDto item)
 	    {
 		    if (MonthlyCalenderBoxes.ContainsKey(item.ItemDate.Date)) MonthlyCalenderBoxes[item.ItemDate.Date].AddItem(item);
 		    if (WeeklyCalenderBoxes.ContainsKey(item.ItemDate.Date)) WeeklyCalenderBoxes[item.ItemDate.Date].AddItem(item);

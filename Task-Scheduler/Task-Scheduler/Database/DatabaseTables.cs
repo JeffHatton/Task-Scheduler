@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_Scheduler.Database
+namespace Task_Scheduler
 {
     class DatabaseTables
     {
         public const string CalendarItemTableName = "Calender_Item_Table";
 
-        public const string CalendarItemTableCreation = "CREATE TABLE " + CalendarItemTableName + "(Name TEXT, id INT, Type TEXT, ItemDate TEXT, Details BLOB);";
+        public const string CalendarItemTableCreation = "CREATE TABLE " + CalendarItemTableName + "(Name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT, Type TEXT, ItemDate TEXT, Details BLOB);";
 
 
         public string Name;

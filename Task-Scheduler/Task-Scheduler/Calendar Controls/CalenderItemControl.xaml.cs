@@ -20,9 +20,9 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderItemControl : UserControl
     {
-        CalendarItem item;        
+        CalenderItemDto item;        
 
-        public CalenderItemControl(CalendarItem item)
+        public CalenderItemControl(CalenderItemDto item)
         {
             InitializeComponent();
 
@@ -34,5 +34,24 @@ namespace Task_Scheduler
         {
             item.done = (sender as CheckBox).IsChecked.Value;
         }
+
+        private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CalenderItemDetailDialog dialog = new CalenderItemDetailDialog();
+            dialog.ApplyDtoToGUI(item);
+            dialog.ShowDialog();
+
+            if (dialog.DialogResult.Value)
+            {
+                //CalenderItemDto dto = dialog.GUIToObject();
+                //if (item != dto)
+                //{
+                //    dto.id = item.id;
+                //    item = dto;
+                                        
+                //}
+            }
+        }
     }
 }
+

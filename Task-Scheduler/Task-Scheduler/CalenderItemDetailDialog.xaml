@@ -1,4 +1,4 @@
-﻿<Window x:Class="Task_Scheduler.NewItem"
+﻿<Window x:Class="Task_Scheduler.CalenderItemDetailDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,7 +13,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <Label>Details</Label>
-            <TextBox Name="Details"/>
+            <TextBox Name="Details" Height="100" TextWrapping="NoWrap" AcceptsReturn="True"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">  
             <Label></Label>

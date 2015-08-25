@@ -53,7 +53,7 @@ namespace Task_Scheduler
             lblDate.Content = date.Day;
         }
 
-        public void AddItem(CalendarItem item)
+        public void AddItem(CalenderItemDto item)
         {
             calenderItems[item.id] = new CalenderItemControl(item);
 

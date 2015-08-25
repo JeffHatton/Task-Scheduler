@@ -33,57 +33,59 @@ namespace Task_Scheduler
             Registry.SetUpRegistry();
             controlCalender.SetStore(ref store);
 
-            store.LoadCalenderItems(Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile));
+            store.LoadCalenderItems();
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            NewItem newItemDialog = new NewItem();
+            CalenderItemDetailDialog newItemDialog = new CalenderItemDetailDialog();
             newItemDialog.ShowDialog();
 
             if (newItemDialog.DialogResult.Value)
             {
-                CalendarItem item = newItemDialog.GUIToObject();
+                CalenderItemDto item = newItemDialog.GUIToObject();
                 store.AddItem(item);
             }
         }        
 
         ~MainWindow()
         {
-            store.saveCalenderItems(Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile));
+            store.saveCalenderItems();
         }
 
         private void Loadbtn_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            DialogResult result = dialog.ShowDialog();
+            //FolderBrowserDialog dialog = new FolderBrowserDialog();
+            //DialogResult result = dialog.ShowDialog();
 
-            // OK button was pressed. 
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-                string path = dialog.SelectedPath;
-                xmlPath = path;
-                store.LoadCalenderItems(path);
-            }
+            //// OK button was pressed. 
+            //if (result == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    string path = dialog.SelectedPath;
+            //    xmlPath = path;
+            //    store.LoadCalenderItems(path);
+            //}
+
+            store.LoadCalenderItems();
         }
 
         private void savebtn_Click(object sender, RoutedEventArgs e)
         {
-            if (xmlPath == "" || xmlPath == null)
-            {
-                FolderBrowserDialog dialog = new FolderBrowserDialog();
+            //if (xmlPath == "" || xmlPath == null)
+            //{
+            //    FolderBrowserDialog dialog = new FolderBrowserDialog();
 
-                DialogResult result = dialog.ShowDialog();
+            //    DialogResult result = dialog.ShowDialog();
 
-                // OK button was pressed. 
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    string path = dialog.SelectedPath;
-                    xmlPath = path;
-                }
-            }
+            //    // OK button was pressed. 
+            //    if (result == System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        string path = dialog.SelectedPath;
+            //        xmlPath = path;
+            //    }
+            //}
 
-            store.saveCalenderItems(xmlPath);
+            store.saveCalenderItems();
         }
     }
 }

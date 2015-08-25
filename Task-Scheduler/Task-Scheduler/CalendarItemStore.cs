@@ -10,11 +10,13 @@ namespace Task_Scheduler
 {
     public class CalendarItemStore
     {
-        Dictionary<int, CalendarItem> CalendarItems = new Dictionary<int, CalendarItem>();
+        Dictionary<int, CalenderItemDto> CalendarItems = new Dictionary<int, CalenderItemDto>();
+        Dictionary<int, CalenderItemDto> modifiedItems = new Dictionary<int, CalenderItemDto>();
+        Dictionary<int, CalenderItemDto> newItems = new Dictionary<int, CalenderItemDto>();
         int currentId = 0;
 
-        public delegate void ItemAddedDel(CalendarItem item);
-        public delegate void ItemsAddedDel(List<CalendarItem> items);
+        public delegate void ItemAddedDel(CalenderItemDto item);
+        public delegate void ItemsAddedDel(List<CalenderItemDto> items);
 
         public event ItemAddedDel ItemAddedEvt;
         public event ItemsAddedDel ItemsAddedEvt;
@@ -24,67 +26,35 @@ namespace Task_Scheduler
 
         }
 
-        public void saveCalenderItems(string xmlPath)
+        public void saveCalenderItems()
         {
-            if (xmlPath == null) return;
-
-            //TODO implement
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.IndentChars = "\t";
-            XmlWriter writer = XmlWriter.Create(xmlPath + "\\Tasks.xml", settings);
-
-            XmlDocument doc = new XmlDocument();
-
-            string xml = "<Items>";
-            foreach (CalendarItem item in CalendarItems.Values)
-            {
-                if (!item.done) xml += "\n" + item.ToXML();
-            }
-
-            xml += "\n</Items>";
-
-            doc.LoadXml(xml);
-            doc.Save(writer);
+            CalenderItemDao.AddCalenderItems(newItems.Values.ToList());
+            CalenderItemDao.UpdateCalenderItems(modifiedItems.Values.ToList());           
         }
 
         public void LoadCalenderItems()
         {
             //TODO implement
+            CalendarItems = CalenderItemDao.GetAllItems();
+            ItemsAddedEvt(CalendarItems.Values.ToList());
         }
 
-        public void LoadCalenderItems(string xamlPath)
-        {
-            //TODO implement
-            XmlDocument doc = new XmlDocument();
-            string xmlFilePath = xamlPath + "\\Tasks.xml";
-
-            if (File.Exists(xmlFilePath))
-            {
-                List<CalendarItem> items = new List<CalendarItem>();
-                doc.Load(xmlFilePath);                
-
-                foreach (XmlNode node in doc.DocumentElement.SelectNodes("//Items/CalendarItem"))
-                {
-                    CalendarItem item = new CalendarItem();
-                    item.FromXml(node);
-                    CalendarItems[item.id] = item;
-                    items.Add(item);
-                }
-
-                ItemsAddedEvt(items);
-            }
-        }
-
-        public void AddItem(CalendarItem item)
+        public void AddItem(CalenderItemDto item)
         {
             if (item.id == -1)
             {
-                item.id = currentId++;
+                item.id = currentId--;
+                newItems[item.id] = item;
             }
-            else if (item.id >= currentId) currentId = item.id + 1;
+            else if (item.id <= currentId) currentId = item.id - 1;
             CalendarItems[item.id] = item;
             ItemAddedEvt(item);
+        }
+
+        public void UpdateItem(CalenderItemDto item)
+        {
+            if (item.id < 0) return;
+            modifiedItems[item.id] = item;
         }
     }
 }
