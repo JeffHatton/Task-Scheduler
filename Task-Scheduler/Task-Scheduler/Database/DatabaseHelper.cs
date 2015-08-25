@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace Task_Scheduler.Database
+namespace Task_Scheduler
 {
     class DatabaseHelper
     {
         public static SQLiteConnection GetDatabaseConnection()
         {
-
+            string databasePath = 
         }
     }
 }
