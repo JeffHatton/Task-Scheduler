@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -68,6 +69,15 @@ namespace Task_Scheduler
                                         
                 //}
             }
+        }
+
+        public void FilterByField(string fieldName, object fieldValue)
+        {
+            PropertyInfo info = typeof(CalenderItemDto).GetProperty(fieldName);
+
+            if (info == null) return;
+
+            if (info.GetValue(item, null) != fieldValue) Visibility = Visibility.Collapsed;
         }
     }
 }

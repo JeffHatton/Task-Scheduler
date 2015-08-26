@@ -59,5 +59,22 @@ namespace Task_Scheduler
 
             addCalenderItemsToBox();
         }
+
+        public void setAllItemsVisible(bool visible)
+        {
+            foreach (CalenderItemControl control in calenderItems.Values)
+            {
+                control.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        
+
+        public void FilterByField(string fieldName, object value)
+        {
+            foreach (CalenderItemControl control in calenderItems.Values)
+            {
+                control.FilterByField(fieldName, value);
+            }
+        }
     }
 }

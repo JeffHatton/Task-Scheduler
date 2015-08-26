@@ -100,5 +100,21 @@ namespace Task_Scheduler
                 }
             }
         }
+
+        private void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            controlCalender.setAllVisible(true);
+        }
+
+        private void CatagoryFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Todo finish
+            controlCalender.FilterAllByField("catagoryId", 1);
+        }
+
+        private void btnClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            controlCalender.setAllVisible(true);
+        }
     }
 }

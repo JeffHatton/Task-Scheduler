@@ -100,8 +100,8 @@
     <Compile Include="CatagoryDetailWindow.xaml.cs">
       <DependentUpon>CatagoryDetailWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Database\Dao\DaoBase.cs" />
-    <Compile Include="Database\Dto\DtoBase.cs" />
+    <Compile Include="Database\Dao\CatagoryDao.cs" />
+    <Compile Include="Database\Dto\CatagoryDto.cs" />
     <Compile Include="Registry.cs" />
     <Page Include="Calendar Controls\CalenderBox.xaml">
       <SubType>Designer</SubType>
