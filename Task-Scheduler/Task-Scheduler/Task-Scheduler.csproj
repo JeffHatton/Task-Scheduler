@@ -97,12 +97,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationData.cs" />
     <Compile Include="CatagoryDetailWindow.xaml.cs">
       <DependentUpon>CatagoryDetailWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Database\Dao\DaoBase.cs" />
-    <Compile Include="Database\Dto\DtoBase.cs" />
+    <Compile Include="Database\Dao\CatagoryDao.cs" />
+    <Compile Include="Database\Dto\CatagoryDto.cs" />
     <Compile Include="Registry.cs" />
+    <Compile Include="Stores\CategoryStore.cs" />
     <Page Include="Calendar Controls\CalenderBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,7 +129,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CalendarItemStore.cs" />
+    <Compile Include="Stores\CalendarItemStore.cs" />
     <Compile Include="Calendar Controls\CalenderBox.xaml.cs">
       <DependentUpon>CalenderBox.xaml</DependentUpon>
     </Compile>

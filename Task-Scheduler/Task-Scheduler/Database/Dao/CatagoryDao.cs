@@ -48,7 +48,7 @@ namespace Task_Scheduler
                 command.Prepare();
                 command.Parameters.AddWithValue("@Name", dto.Name);
                 command.Parameters.AddWithValue("@Color", dto.Color.ToString());
-                command.ExecuteNonQuery();
+                dto.id = command.ExecuteNonQuery();
             }
 
             if (closeCon) conn.Close();
@@ -139,6 +139,7 @@ namespace Task_Scheduler
             CatagoryDto dto = new CatagoryDto();
            
             dto.Name = read["Name"] as string;
+            dto.id = Convert.ToInt32(read["id"]);
             dto.Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(read["Color"] as string));
 
             return dto;

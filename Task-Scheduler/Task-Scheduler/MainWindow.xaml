@@ -7,16 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
     <DockPanel>
-        <ToolBar DockPanel.Dock="Top">
-            <ToolBarPanel>
-                <MenuItem Header="Edit">
-                    <MenuItem Header="Add Catagory" Click="AddCata_Click"/>
-                </MenuItem>
-            </ToolBarPanel>
-        </ToolBar>
-        <DataGrid DockPanel.Dock="Left" Name="dataGridTaskList">
-            
-        </DataGrid>-->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Edit">
+                <MenuItem Header="Add Catagory" Name="menuAddCata" Click="menuAddCata_Click"/>
+            </MenuItem>
+        </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button Name="newButton" Click="newButton_Click" HorizontalAlignment="Left" Content="New" Margin="3" />
             <Button DockPanel.Dock="Right" Name="Loadbtn" Click="Loadbtn_Click" HorizontalAlignment="Left" Content="Load" Margin="3" />

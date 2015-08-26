@@ -20,7 +20,7 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderControl : UserControl
     {
-        CalendarItemStore store;
+        ApplicationData appData;
 
         Dictionary<DateTime, CalenderBox> MonthlyCalenderBoxes;
         Dictionary<DateTime, CalenderBox> WeeklyCalenderBoxes;
@@ -35,12 +35,12 @@ namespace Task_Scheduler
             WeeklyCalenderBoxes = new Dictionary<DateTime, CalenderBox>();
         }
 
-        public void SetStore(ref CalendarItemStore store)
+        public void SetData(ref ApplicationData data)
         {
-            this.store = store;
+            this.appData = data;
 
-            store.ItemAddedEvt += Store_ItemAddedEvt;
-            store.ItemsAddedEvt += Store_ItemsAddedEvt;
+            appData.calendarItemStore.ItemAddedEvt += Store_ItemAddedEvt;
+            appData.calendarItemStore.ItemsAddedEvt += Store_ItemsAddedEvt;
         }
 
         private void Store_ItemsAddedEvt(List<CalenderItemDto> items)

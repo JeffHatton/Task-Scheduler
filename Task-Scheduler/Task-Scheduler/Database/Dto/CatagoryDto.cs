@@ -7,11 +7,11 @@ using System.Windows.Media;
 
 namespace Task_Scheduler
 {
-    class CatagoryDto
+    public class CatagoryDto
     {
         public int id;
-        public string Name;
-        public Brush Color;
+        public string Name {get; set; }
+        public Brush Color { get; set; }
 
         public CatagoryDto()
         {

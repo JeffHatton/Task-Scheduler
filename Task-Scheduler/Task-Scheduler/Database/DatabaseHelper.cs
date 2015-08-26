@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Windows.Media;
 
 namespace Task_Scheduler
 {
@@ -37,6 +38,12 @@ namespace Task_Scheduler
 
                 command = new SQLiteCommand(DatabaseTables.CatagoryTableCreation, connection);
                 command.ExecuteNonQuery();
+
+                CatagoryDto dto = new CatagoryDto();
+                dto.Name = "Misc";
+                dto.Color = Brushes.Gray;
+
+                CatagoryDao.AddItem(dto, connection);
 
                 connection.Close();
             }

@@ -19,6 +19,7 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderItemDetailDialog : Window
     {
+        ApplicationData data;
         bool _ReadOnly;
         public bool ReadOnly { get { return _ReadOnly; } set { SetReadonly(value); } }
 
@@ -26,9 +27,13 @@ namespace Task_Scheduler
         {
             InitializeComponent();
 
+            data = ApplicationData.Get();
+
             date.SelectedDate = DateTime.Now;
             comboType.ItemsSource = Enum.GetValues(typeof(CalendarItemType));
             comboType.SelectedValue = CalendarItemType.Task;
+            comboCategory.ItemsSource = data.categoryStore.CalendarItems.Values;
+            comboCategory.SelectedItem = data.categoryStore.CalendarItems[1];
             name.Focus();
         }
 
@@ -48,6 +53,14 @@ namespace Task_Scheduler
             item.Details = Details.Text;
             item.ItemDate = date.SelectedDate.Value; 
             item.Name = name.Text;
+            item.Type = (comboType.SelectedItem as CalendarItemType?).Value;
+
+            CatagoryDto dto = comboCategory.SelectedItem as CatagoryDto;
+
+            if (dto != null)
+            {
+                item.categoryId = dto.id;
+            }
 
             return item;
         }
@@ -58,6 +71,11 @@ namespace Task_Scheduler
             Details.Text = dto.Details;
             name.Text = dto.Name;
             date.SelectedDate = dto.ItemDate;
+
+            if (data.categoryStore.CalendarItems.ContainsKey(dto.categoryId))
+            {
+                comboCategory.SelectedValue = data.categoryStore.CalendarItems[dto.categoryId];
+            }
         }
 
         public void SetReadonly(bool Readonly)
@@ -67,6 +85,8 @@ namespace Task_Scheduler
             name.IsEnabled = !Readonly;
             Details.IsEnabled = !Readonly;
             date.IsEnabled = !Readonly;
+            comboCategory.IsEnabled = !Readonly;
+            comboType.IsEnabled = !Readonly;
         }
     }
 }

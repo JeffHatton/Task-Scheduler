@@ -36,7 +36,7 @@ namespace Task_Scheduler
         {
             //TODO implement
             CalendarItems = CalenderItemDao.GetAllItems();
-            ItemsAddedEvt(CalendarItems.Values.ToList());
+            if (ItemsAddedEvt != null) ItemsAddedEvt(CalendarItems.Values.ToList());
         }
 
         public void AddItem(CalenderItemDto item)
@@ -48,7 +48,7 @@ namespace Task_Scheduler
             }
             else if (item.id <= currentId) currentId = item.id - 1;
             CalendarItems[item.id] = item;
-            ItemAddedEvt(item);
+            if (ItemAddedEvt != null) ItemAddedEvt(item);
         }
 
         public void UpdateItem(CalenderItemDto item)

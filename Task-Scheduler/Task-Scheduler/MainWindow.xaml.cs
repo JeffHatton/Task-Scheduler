@@ -21,19 +21,19 @@ namespace Task_Scheduler
     /// </summary>
     public partial class MainWindow : Window
     {
-        CalendarItemStore store;
+        ApplicationData appData;
         string xmlPath;
 
         public MainWindow()
         {
             InitializeComponent();
             controlCalender.generateCalenderBoxes();
-            store = new CalendarItemStore();
+            appData = ApplicationData.Get();
+            appData.LoadAll();
 
             Registry.SetUpRegistry();
-            controlCalender.SetStore(ref store);
-
-            store.LoadCalenderItems();
+            controlCalender.SetData(ref appData);
+            
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -44,13 +44,13 @@ namespace Task_Scheduler
             if (newItemDialog.DialogResult.Value)
             {
                 CalenderItemDto item = newItemDialog.GUIToObject();
-                store.AddItem(item);
+                appData.calendarItemStore.AddItem(item);
             }
         }        
 
         ~MainWindow()
         {
-            store.saveCalenderItems();
+            appData.saveAll();
         }
 
         private void Loadbtn_Click(object sender, RoutedEventArgs e)
@@ -66,7 +66,7 @@ namespace Task_Scheduler
             //    store.LoadCalenderItems(path);
             //}
 
-            store.LoadCalenderItems();
+            //store.LoadCalenderItems();
         }
 
         private void savebtn_Click(object sender, RoutedEventArgs e)
@@ -85,7 +85,7 @@ namespace Task_Scheduler
             //    }
             //}
 
-            store.saveCalenderItems();
+            appData.saveAll();
         }
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -98,6 +98,24 @@ namespace Task_Scheduler
                 {
                     newButton_Click(null, null);
                 }
+                if (e.Key == Key.C)
+                {
+                    menuAddCata_Click(null, null);
+                }
+            }
+        }
+
+        private void menuAddCata_Click(object sender, RoutedEventArgs e)
+        {
+            CatagoryDetailWindow window = new CatagoryDetailWindow();
+
+            window.ShowDialog();
+
+            if (window.DialogResult.Value)
+            {
+                CatagoryDto dto = window.GuiToDto();
+
+                appData.categoryStore.AddItem(dto);
             }
         }
     }

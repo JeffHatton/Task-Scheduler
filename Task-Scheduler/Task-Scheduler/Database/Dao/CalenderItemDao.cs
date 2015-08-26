@@ -50,7 +50,7 @@ namespace Task_Scheduler
                 command.Parameters.AddWithValue("@Type", dto.Type.ToString());
                 command.Parameters.AddWithValue("@ItemDate", dto.ItemDate.ToString());
                 command.Parameters.AddWithValue("@Details", dto.Details);
-                command.ExecuteNonQuery();
+                dto.id = command.ExecuteNonQuery();
             }
 
             if (closeCon) conn.Close();

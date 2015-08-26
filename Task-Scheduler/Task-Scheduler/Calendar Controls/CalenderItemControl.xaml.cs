@@ -29,6 +29,7 @@ namespace Task_Scheduler
             this.item = item;
             lblTaskName.Content = item.Name;
             lblType.Content = TypeToChar(item.Type);
+            Background = ApplicationData.Get().categoryStore.CalendarItems[item.categoryId].Color;
         }
 
         public string TypeToChar(CalendarItemType type)
@@ -41,6 +42,9 @@ namespace Task_Scheduler
                     break;
                 case CalendarItemType.Task:
                     charType = "T";
+                    break;
+                case CalendarItemType.DueDate:
+                    charType = "D";
                     break;
             }
 

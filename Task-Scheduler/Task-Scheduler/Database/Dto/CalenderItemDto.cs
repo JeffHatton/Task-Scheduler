@@ -9,31 +9,32 @@ namespace Task_Scheduler
     public enum CalendarItemType
     {
         Event,
-        Work,
+        Task,
         DueDate
     }
 
     public class CalenderItemDto
     {
-            public string Name;
-            public int id;
-            public CalendarItemType Type;
+        public string Name;
+        public int id;
+        public CalendarItemType Type;
 
-            public string Details;
-            public DateTime ItemDate;
+        public string Details;
+        public DateTime ItemDate;
 
-            public List<DateTime> WorkAssigned;
+        public List<DateTime> WorkAssigned;
 
-            public bool done;
+        public bool done;
+        public int categoryId;
 
-            public CalenderItemDto()
-            {
-                Name = "";
-                id = -1;
-                Details = "";
-                ItemDate = DateTime.Now;
-                WorkAssigned = new List<DateTime>();
-            }
+        public CalenderItemDto()
+        {
+            Name = "";
+            id = -1;
+            Details = "";
+            ItemDate = DateTime.Now;
+            WorkAssigned = new List<DateTime>();
+        }
 
 
             //public void FromXml(XmlNode node)
