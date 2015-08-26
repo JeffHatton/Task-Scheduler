@@ -8,14 +8,17 @@
         Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Edit">
+                <MenuItem Header="Edit">
                 <MenuItem Header="Add Catagory" Name="menuAddCata" Click="menuAddCata_Click"/>
-            </MenuItem>
+                </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button Name="newButton" Click="newButton_Click" HorizontalAlignment="Left" Content="New" Margin="3" />
             <Button DockPanel.Dock="Right" Name="Loadbtn" Click="Loadbtn_Click" HorizontalAlignment="Left" Content="Load" Margin="3" />
             <Button DockPanel.Dock="Right" Name="savebtn" Click="savebtn_Click" HorizontalAlignment="Left" Content="Save" Margin="3" />
+            <Button Name="btnFilter" Content="Filter" Click ="btnFilter_Click"/>
+            <ComboBox Name="CatagoryFilter" SelectionChanged="CatagoryFilter_SelectionChanged" Width="150"/>
+            <Button Name="btnClearFilter" Content="Clear Filter" Click="btnClearFilter_Click" />
         </StackPanel>
         <local:CalenderControl x:Name="controlCalender" />
     </DockPanel>

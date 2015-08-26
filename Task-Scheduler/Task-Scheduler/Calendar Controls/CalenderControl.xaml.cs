@@ -113,5 +113,35 @@ namespace Task_Scheduler
                 if (time.CompareTo(DateTime.Now) < 0) box.Background = Brushes.Gray;
             }
         }
+
+        public void setAllVisible(bool visible)
+        {
+            foreach (CalenderBox box in MonthlyCalenderBoxes.Values)
+            {
+                box.setAllItemsVisible(visible);
+            }
+
+            foreach (CalenderBox box in WeeklyCalenderBoxes.Values)
+            {
+                box.setAllItemsVisible(visible);
+            }
+
+            CalenderBoxDay.setAllItemsVisible(visible);
+        }
+
+        public void FilterAllByField(string fieldName, object value)
+        {
+            foreach (CalenderBox box in MonthlyCalenderBoxes.Values)
+            {
+                box.FilterByField(fieldName, value);
+            }
+
+            foreach (CalenderBox box in WeeklyCalenderBoxes.Values)
+            {
+                box.FilterByField(fieldName, value);
+            }
+
+            CalenderBoxDay.FilterByField(fieldName, value);
+        }
     }
 }
