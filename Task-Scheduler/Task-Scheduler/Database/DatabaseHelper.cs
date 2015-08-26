@@ -34,6 +34,10 @@ namespace Task_Scheduler
 
                 SQLiteCommand command = new SQLiteCommand(DatabaseTables.CalendarItemTableCreation, connection);
                 command.ExecuteNonQuery();
+
+                command = new SQLiteCommand(DatabaseTables.CatagoryTableCreation, connection);
+                command.ExecuteNonQuery();
+
                 connection.Close();
             }
             catch (Exception ex)

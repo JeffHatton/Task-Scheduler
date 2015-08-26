@@ -27,6 +27,9 @@ namespace Task_Scheduler
             InitializeComponent();
 
             date.SelectedDate = DateTime.Now;
+            comboType.ItemsSource = Enum.GetValues(typeof(CalendarItemType));
+            comboType.SelectedValue = CalendarItemType.Task;
+            name.Focus();
         }
 
         private void btkOk_Click(object sender, RoutedEventArgs e)
