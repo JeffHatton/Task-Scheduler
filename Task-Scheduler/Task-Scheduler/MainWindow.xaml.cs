@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Task_Scheduler
 {
@@ -31,9 +32,11 @@ namespace Task_Scheduler
             appData = ApplicationData.Get();
             appData.LoadAll();
 
+            CatagoryFilter.ItemsSource = appData.categoryStore.CalendarItems.Values;
+
+            dataGridItems.Items.Clear();
             Registry.SetUpRegistry();
-            controlCalender.SetData(ref appData);
-            
+            controlCalender.SetData(ref appData);            
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -127,12 +130,57 @@ namespace Task_Scheduler
         private void CatagoryFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Todo finish
-            controlCalender.FilterAllByField("catagoryId", 1);
+
+            CatagoryDto dto = CatagoryFilter.SelectedValue as CatagoryDto;
+
+            if (dto != null)
+            {
+                controlCalender.FilterAllByField("categoryId", dto.id);
+            }
         }
 
         private void btnClearFilter_Click(object sender, RoutedEventArgs e)
         {
             controlCalender.setAllVisible(true);
+        }
+
+        private void chkshowList_Checked(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.CheckBox box = sender as System.Windows.Controls.CheckBox;
+
+            if (box.IsChecked.Value)
+            {
+
+                ListCollectionView collectionView = new ListCollectionView(appData.calendarItemStore.CalendarItems.Values.ToList());
+                collectionView.SortDescriptions.Add(new SortDescription("ItemDate.Date", ListSortDirection.Ascending));
+                collectionView.GroupDescriptions.Add(new PropertyGroupDescription("ItemDate.Date"));
+
+                dataGridItems.ItemsSource = collectionView;
+                dataGridItems.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                dataGridItems.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CalenderItemDetailDialog dialog = new CalenderItemDetailDialog();
+            dialog.ApplyDtoToGUI((sender as DataGridRow).DataContext as CalenderItemDto);
+            dialog.ShowDialog();
+
+            if (dialog.DialogResult.Value)
+            {
+                //CalenderItemDto dto = dialog.GUIToObject();
+                //if (item != dto)
+                //{
+                //    dto.id = item.id;
+                //    item = dto;
+
+                //}
+            }
         }
     }
 }

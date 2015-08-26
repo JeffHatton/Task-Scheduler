@@ -11,13 +11,13 @@ namespace Task_Scheduler
     {
         public int id;
         public string Name {get; set; }
-        public Brush Color { get; set; }
+        public Color Color { get; set; }
 
         public CatagoryDto()
         {
             id = -1;
             Name = "";
-            Color = Brushes.Gray;
+            Color = Colors.Gray;
         }
     }
 }

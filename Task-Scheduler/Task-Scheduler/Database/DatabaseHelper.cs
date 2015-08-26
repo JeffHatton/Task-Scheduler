@@ -14,7 +14,13 @@ namespace Task_Scheduler
         public const string DATABASE_NAME = "Task_App_Database.sqlite";
         public static SQLiteConnection GetDatabaseConnection()
         {
-            string databasePath = Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile) + "\\" + DATABASE_NAME;
+            string databasePath = Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile);
+            
+            #if DEBUG
+                databasePath += "\\Test\\" + DATABASE_NAME;
+            #else
+                databasePath += "\\" + DATABASE_NAME;
+            #endif
 
             if (!File.Exists(databasePath)) createDatabase(databasePath);
 
@@ -41,7 +47,7 @@ namespace Task_Scheduler
 
                 CatagoryDto dto = new CatagoryDto();
                 dto.Name = "Misc";
-                dto.Color = Brushes.Gray;
+                dto.Color = Colors.Gray;
 
                 CatagoryDao.AddItem(dto, connection);
 

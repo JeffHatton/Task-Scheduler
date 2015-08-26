@@ -10,7 +10,7 @@ namespace Task_Scheduler
 {
     public class CalendarItemStore
     {
-        Dictionary<int, CalenderItemDto> CalendarItems = new Dictionary<int, CalenderItemDto>();
+        public Dictionary<int, CalenderItemDto> CalendarItems = new Dictionary<int, CalenderItemDto>();
         Dictionary<int, CalenderItemDto> modifiedItems = new Dictionary<int, CalenderItemDto>();
         Dictionary<int, CalenderItemDto> newItems = new Dictionary<int, CalenderItemDto>();
         int currentId = 0;

@@ -15,17 +15,17 @@ namespace Task_Scheduler
 
     public class CalenderItemDto
     {
-        public string Name;
-        public int id;
-        public CalendarItemType Type;
+        public string Name { get; set; }
+        public int id { get; set; }
+        public CalendarItemType Type { get; set; }
 
-        public string Details;
-        public DateTime ItemDate;
+        public string Details { get; set; }
+        public DateTime ItemDate { get; set; }
 
-        public List<DateTime> WorkAssigned;
+        public List<DateTime> WorkAssigned { get; set; }
 
-        public bool done;
-        public int categoryId;
+        public bool done { get; set; }
+        public int categoryId { get; set; }
 
         public CalenderItemDto()
         {

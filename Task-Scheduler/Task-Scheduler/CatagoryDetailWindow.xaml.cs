@@ -34,7 +34,7 @@ namespace Task_Scheduler
         {
             CatagoryDto dto = new CatagoryDto();
             dto.Name = name.Text;
-            dto.Color = new SolidColorBrush(ColorPicker.SelectedColor.Value);
+            dto.Color = ColorPicker.SelectedColor.Value;
 
             return dto;
         }

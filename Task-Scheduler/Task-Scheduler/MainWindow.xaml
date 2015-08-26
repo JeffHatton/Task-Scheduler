@@ -8,18 +8,56 @@
         Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Edit">
+7            <MenuItem Header="Edit">
                 <MenuItem Header="Add Catagory" Name="menuAddCata" Click="menuAddCata_Click"/>
-                </MenuItem>
+            </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button Name="newButton" Click="newButton_Click" HorizontalAlignment="Left" Content="New" Margin="3" />
             <Button DockPanel.Dock="Right" Name="Loadbtn" Click="Loadbtn_Click" HorizontalAlignment="Left" Content="Load" Margin="3" />
             <Button DockPanel.Dock="Right" Name="savebtn" Click="savebtn_Click" HorizontalAlignment="Left" Content="Save" Margin="3" />
             <Button Name="btnFilter" Content="Filter" Click ="btnFilter_Click"/>
-            <ComboBox Name="CatagoryFilter" SelectionChanged="CatagoryFilter_SelectionChanged" Width="150"/>
+            <ComboBox Name="CatagoryFilter" SelectionChanged="CatagoryFilter_SelectionChanged" Width="150" DisplayMemberPath="Name"/>
             <Button Name="btnClearFilter" Content="Clear Filter" Click="btnClearFilter_Click" />
+            <CheckBox Name="chkshowList" Checked="chkshowList_Checked" Unchecked="chkshowList_Checked" Content="Show List" />
         </StackPanel>
-        <local:CalenderControl x:Name="controlCalender" />
+        <DataGrid Name="dataGridItems" DockPanel.Dock="Left" AutoGenerateColumns="False" Visibility="Collapsed">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Path=Name}" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <local:CalenderControl x:Name="controlCalender" DockPanel.Dock="Right"/>
     </DockPanel>
 </Window>

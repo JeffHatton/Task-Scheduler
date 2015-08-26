@@ -9,9 +9,10 @@ namespace Task_Scheduler
 {
     public class CalenderItemDao
     {
-        const string ADD_ITEM_SQL = "insert into " + DatabaseTables.CalendarItemTableName + " (Name, Type, ItemDate, Details) values (@Name,@Type,@ItemDate,@Details)";
-        const string UPDATE_ITEM_SQL = "update " + DatabaseTables.CalendarItemTableName + " set Name = @Name, Type = @Type, ItemDate = @ItemDate, Details = @Details where id = @id";
+        const string ADD_ITEM_SQL = "insert into " + DatabaseTables.CalendarItemTableName + " (Name, Type, Date, Time, Details, Complete) values (@Name,@Type,@Date,@Time, @Details, @Complete)";
+        const string UPDATE_ITEM_SQL = "update " + DatabaseTables.CalendarItemTableName + " set Name = @Name, Type = @Type, Date = @Date, Time=@Time, Complete = @Complete Details = @Details where id = @id";
         const string SELECT_ALL_ITEMS_SQL = "Select * From " + DatabaseTables.CalendarItemTableName;
+        const string SELECT_ALL_NONE_COMPLETE_ITEMS_SQL = "Select * From " + DatabaseTables.CalendarItemTableName + " where Complete=0";
         const string SELECT_ITEM_SQL = "";
 
 
@@ -48,7 +49,9 @@ namespace Task_Scheduler
                 command.Prepare();
                 command.Parameters.AddWithValue("@Name", dto.Name);
                 command.Parameters.AddWithValue("@Type", dto.Type.ToString());
-                command.Parameters.AddWithValue("@ItemDate", dto.ItemDate.ToString());
+                command.Parameters.AddWithValue("@Date", dto.ItemDate.Date.ToString());
+                command.Parameters.AddWithValue("@Time", dto.ItemDate.TimeOfDay.ToString());
+                command.Parameters.AddWithValue("@Complete", dto.done);
                 command.Parameters.AddWithValue("@Details", dto.Details);
                 dto.id = command.ExecuteNonQuery();
             }
@@ -90,9 +93,10 @@ namespace Task_Scheduler
                 command.Prepare();
                 command.Parameters.AddWithValue("@Name", dto.Name);
                 command.Parameters.AddWithValue("@Type", dto.Type.ToString());
-                command.Parameters.AddWithValue("@ItemDate", dto.ItemDate.ToString());
+                command.Parameters.AddWithValue("@Date", dto.ItemDate.Date.ToString());
+                command.Parameters.AddWithValue("@Time", dto.ItemDate.TimeOfDay.ToString());
+                command.Parameters.AddWithValue("@Complete", dto.done);
                 command.Parameters.AddWithValue("@Details", dto.Details);
-                command.Parameters.AddWithValue("@id", dto.id);
                 command.ExecuteNonQuery();
             }
 
@@ -113,7 +117,7 @@ namespace Task_Scheduler
             return false;
         }
 
-        public static Dictionary<int, CalenderItemDto> GetAllItems(SQLiteConnection conn = null)
+        public static Dictionary<int, CalenderItemDto> GetAllItems(bool GetCompleteItems = false, SQLiteConnection conn = null)
         {
             bool closeCon = false;
             if (conn == null)
@@ -123,7 +127,7 @@ namespace Task_Scheduler
             }
 
             Dictionary<int, CalenderItemDto> dtos = new Dictionary<int, CalenderItemDto>();
-            using (SQLiteCommand command = new SQLiteCommand(SELECT_ALL_ITEMS_SQL, conn))
+            using (SQLiteCommand command = new SQLiteCommand(GetCompleteItems ? SELECT_ALL_ITEMS_SQL : SELECT_ALL_NONE_COMPLETE_ITEMS_SQL, conn))
             {
                 using (SQLiteDataReader rdr = command.ExecuteReader())
                 {
@@ -145,9 +149,12 @@ namespace Task_Scheduler
 
             dto.Details = read["Details"] as string;
             dto.Name = read["Name"] as string;
-            dto.ItemDate = DateTime.Parse(read["ItemDate"] as string);
+            DateTime date = DateTime.Parse(read["Date"] as string);
+            DateTime time = DateTime.Parse(read["Time"] as string);
+            dto.ItemDate = date.Add(time.TimeOfDay);
             dto.Type = (CalendarItemType)Enum.Parse(typeof(CalendarItemType), read["Type"] as string);
             dto.id = Convert.ToInt32(read["id"]);
+            dto.done = (read["Complete"] as bool?).Value;            
 
             return dto;
         }

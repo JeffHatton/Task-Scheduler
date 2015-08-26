@@ -30,7 +30,7 @@ namespace Task_Scheduler
             this.item = item;
             lblTaskName.Content = item.Name;
             lblType.Content = TypeToChar(item.Type);
-            Background = ApplicationData.Get().categoryStore.CalendarItems[item.categoryId].Color;
+            Background = new SolidColorBrush(ApplicationData.Get().categoryStore.CalendarItems[item.categoryId].Color);
         }
 
         public string TypeToChar(CalendarItemType type)
@@ -81,7 +81,8 @@ namespace Task_Scheduler
 
             if (info == null) return;
 
-            if (info.GetValue(item, null) != fieldValue) Visibility = Visibility.Collapsed;
+            if (info.GetValue(item, null).Equals(fieldValue)) Visibility = Visibility.Visible;
+            else Visibility = Visibility.Collapsed;
         }
     }
 }

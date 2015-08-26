@@ -140,7 +140,7 @@ namespace Task_Scheduler
            
             dto.Name = read["Name"] as string;
             dto.id = Convert.ToInt32(read["id"]);
-            dto.Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(read["Color"] as string));
+            dto.Color = (Color)ColorConverter.ConvertFromString(read["Color"] as string);
 
             return dto;
         }

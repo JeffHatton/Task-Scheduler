@@ -91,8 +91,10 @@ namespace Task_Scheduler
 
                     CalenderGridMonth.Children.Add(box);
 
+                    if (currentDay.CompareTo(DateTime.Now.Date) < 0) box.Background = Brushes.Gray;
+
                     MonthlyCalenderBoxes[currentDay.Date] = box;
-                    currentDay = currentDay.AddDays(1);
+                    currentDay = currentDay.AddDays(1);                    
                 }
             }
 
