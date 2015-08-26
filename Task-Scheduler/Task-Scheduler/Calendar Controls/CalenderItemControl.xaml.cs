@@ -55,23 +55,25 @@ namespace Task_Scheduler
         private void doneChk_Checked(object sender, RoutedEventArgs e)
         {
             item.done = (sender as CheckBox).IsChecked.Value;
+
+            ApplicationData.Get().calendarItemStore.UpdateItem(item);
         }
 
         private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CalenderItemDetailDialog dialog = new CalenderItemDetailDialog();
-            dialog.ApplyDtoToGUI(item);
+            dialog.ApplyDtoToGUI(item, true);
             dialog.ShowDialog();
 
             if (dialog.DialogResult.Value)
             {
-                //CalenderItemDto dto = dialog.GUIToObject();
-                //if (item != dto)
-                //{
-                //    dto.id = item.id;
-                //    item = dto;
-                                        
-                //}
+                CalenderItemDto dto = dialog.GUIToObject();
+                if (!item.Equals(dto))
+                {
+                    dto.id = item.id;
+                    item = dto;
+                    ApplicationData.Get().calendarItemStore.UpdateItem(dto);
+                }
             }
         }
 

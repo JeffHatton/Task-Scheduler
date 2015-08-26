@@ -20,6 +20,7 @@
             <ComboBox Name="CatagoryFilter" SelectionChanged="CatagoryFilter_SelectionChanged" Width="150" DisplayMemberPath="Name"/>
             <Button Name="btnClearFilter" Content="Clear Filter" Click="btnClearFilter_Click" />
             <CheckBox Name="chkshowList" Checked="chkshowList_Checked" Unchecked="chkshowList_Checked" Content="Show List" />
+            <Button Name="btnRefres" Content="Refresh" Click="btnRefres_Click" />
         </StackPanel>
         <DataGrid Name="dataGridItems" DockPanel.Dock="Left" AutoGenerateColumns="False" Visibility="Collapsed">
             <DataGrid.Resources>

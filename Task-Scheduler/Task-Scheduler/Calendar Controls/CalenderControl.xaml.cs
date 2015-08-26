@@ -43,11 +43,27 @@ namespace Task_Scheduler
             appData.calendarItemStore.ItemsAddedEvt += Store_ItemsAddedEvt;
         }
 
+        public void Refresh()
+        {
+            CalendarItemStore store = appData.calendarItemStore;
+            foreach (CalenderBox box in MonthlyCalenderBoxes.Values)
+            {
+                box.Refresh();
+            }
+
+            foreach (CalenderBox box in WeeklyCalenderBoxes.Values)
+            {
+                box.Refresh();
+            }
+
+            CalenderBoxDay.Refresh();
+        }
+
         private void Store_ItemsAddedEvt(List<CalenderItemDto> items)
         {
             foreach (CalenderItemDto item in items)
             {
-		        AddItemToCalendar(item);
+                AddItemToCalendar(item);
             }
         }
 
@@ -56,12 +72,12 @@ namespace Task_Scheduler
             AddItemToCalendar(item);
         }
 
-	    public void AddItemToCalendar(CalenderItemDto item)
-	    {
-		    if (MonthlyCalenderBoxes.ContainsKey(item.ItemDate.Date)) MonthlyCalenderBoxes[item.ItemDate.Date].AddItem(item);
-		    if (WeeklyCalenderBoxes.ContainsKey(item.ItemDate.Date)) WeeklyCalenderBoxes[item.ItemDate.Date].AddItem(item);
-		    if (CalenderBoxDay.ItemDate == item.ItemDate.Date) CalenderBoxDay.AddItem(item);
-	    }
+        public void AddItemToCalendar(CalenderItemDto item)
+        {
+            if (MonthlyCalenderBoxes.ContainsKey(item.ItemDate.Date)) MonthlyCalenderBoxes[item.ItemDate.Date].AddItem(item);
+            if (WeeklyCalenderBoxes.ContainsKey(item.ItemDate.Date)) WeeklyCalenderBoxes[item.ItemDate.Date].AddItem(item);
+            if (CalenderBoxDay.ItemDate == item.ItemDate.Date) CalenderBoxDay.AddItem(item);
+        }
 
         public void generateCalenderBoxes()
         {

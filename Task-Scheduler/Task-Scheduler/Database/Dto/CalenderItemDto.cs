@@ -36,19 +36,30 @@ namespace Task_Scheduler
             WorkAssigned = new List<DateTime>();
         }
 
-
-            //public void FromXml(XmlNode node)
-            //{
-            //    Name = node.Attributes["Name"].Value;
-            //    Details = node.InnerText;
-            //    id = int.Parse(node.Attributes["Id"].Value);
-            //    ItemDate = DateTime.Parse(node.Attributes["Date"].Value);
-            //}
-
-            //public string ToXML()
-            //{
-            //    string xml = "<CalendarItem Id=\"" + id.ToString() + "\" Date=\"" + ItemDate.ToString() + "\" Name=\"" + Name + "\" >" + Details + "</CalendarItem>";
-            //    return xml;
-            //}
+        public CalenderItemDto(CalenderItemDto dto)
+        {
+            Name = dto.Name;
+            id = dto.id;
+            Details = dto.Details;
+            ItemDate = dto.ItemDate;
+            WorkAssigned = dto.WorkAssigned;
+            categoryId = dto.categoryId;
+            done = dto.done;
+            Type = dto.Type;
         }
+
+        //public void FromXml(XmlNode node)
+        //{
+        //    Name = node.Attributes["Name"].Value;
+        //    Details = node.InnerText;
+        //    id = int.Parse(node.Attributes["Id"].Value);
+        //    ItemDate = DateTime.Parse(node.Attributes["Date"].Value);
+        //}
+
+        //public string ToXML()
+        //{
+        //    string xml = "<CalendarItem Id=\"" + id.ToString() + "\" Date=\"" + ItemDate.ToString() + "\" Name=\"" + Name + "\" >" + Details + "</CalendarItem>";
+        //    return xml;
+        //}
+    }
 }

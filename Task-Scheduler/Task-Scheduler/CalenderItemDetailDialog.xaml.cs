@@ -19,6 +19,7 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderItemDetailDialog : Window
     {
+        CalenderItemDto dto;
         ApplicationData data;
         bool _ReadOnly;
         public bool ReadOnly { get { return _ReadOnly; } set { SetReadonly(value); } }
@@ -28,6 +29,7 @@ namespace Task_Scheduler
             InitializeComponent();
 
             data = ApplicationData.Get();
+            dto = null;
 
             date.SelectedDate = DateTime.Now;
             comboType.ItemsSource = Enum.GetValues(typeof(CalendarItemType));
@@ -49,20 +51,20 @@ namespace Task_Scheduler
 
         public CalenderItemDto GUIToObject()
         {
-            CalenderItemDto item = new CalenderItemDto();
-            item.Details = Details.Text;
-            item.ItemDate = date.SelectedDate.Value; 
-            item.Name = name.Text;
-            item.Type = (comboType.SelectedItem as CalendarItemType?).Value;
+            if (dto == null) dto = new CalenderItemDto();
+            dto.Details = Details.Text;
+            dto.ItemDate = date.SelectedDate.Value;
+            dto.Name = name.Text;
+            dto.Type = (comboType.SelectedItem as CalendarItemType?).Value;
 
-            CatagoryDto dto = comboCategory.SelectedItem as CatagoryDto;
+            CatagoryDto Categorydto = comboCategory.SelectedItem as CatagoryDto;
 
-            if (dto != null)
+            if (Categorydto != null)
             {
-                item.categoryId = dto.id;
-            }
+                dto.categoryId = Categorydto.id;
+            }            
 
-            return item;
+            return dto;
         }
 
         public void ApplyDtoToGUI(CalenderItemDto dto, bool editable = false)
@@ -71,6 +73,8 @@ namespace Task_Scheduler
             Details.Text = dto.Details;
             name.Text = dto.Name;
             date.SelectedDate = dto.ItemDate;
+
+            dto = new CalenderItemDto(dto);
 
             if (data.categoryStore.CalendarItems.ContainsKey(dto.categoryId))
             {

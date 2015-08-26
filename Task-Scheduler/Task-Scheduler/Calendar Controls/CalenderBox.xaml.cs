@@ -26,15 +26,32 @@ namespace Task_Scheduler
         public CalenderBox()
         {
             InitializeComponent();
+
+            ApplicationData.Get().calendarItemStore.ItemsUpdatedEvt += CalendarItemStore_ItemsUpdatedEvt;
+        }
+
+        private void CalendarItemStore_ItemsUpdatedEvt(Dictionary<DateTime, List<CalenderItemDto>> updatedItems, Dictionary<DateTime, List<CalenderItemDto>> oldItems)
+        {
+            if (updatedItems.ContainsKey(ItemDate.Date) || oldItems.ContainsKey(ItemDate.Date))
+            {
+                Refresh();
+            }
         }
 
         public CalenderBox(DateTime date)
         {
             InitializeComponent();
-
             setDate(date);
+            List<CalenderItemDto> items =  ApplicationData.Get().calendarItemStore.getByDate(date.Date);
+
+            foreach (CalenderItemDto dto in items)
+            {
+                calenderItems[dto.id] = new CalenderItemControl(dto);
+            }
 
             addCalenderItemsToBox();
+
+            ApplicationData.Get().calendarItemStore.ItemsUpdatedEvt += CalendarItemStore_ItemsUpdatedEvt;
         }
 
         public void addCalenderItemsToBox()
@@ -51,6 +68,20 @@ namespace Task_Scheduler
         {
             this.ItemDate = date.Date;
             lblDate.Content = date.Day;
+        }
+
+        public void ClearItems()
+        {
+            calenderItems.Clear();
+            calenderItemsContainer.Children.Clear();
+        }
+
+        public void AddItems(List<CalenderItemDto> items)
+        {
+            foreach (CalenderItemDto dto in items)
+            {
+                AddItem(dto);
+            }
         }
 
         public void AddItem(CalenderItemDto item)
@@ -75,6 +106,12 @@ namespace Task_Scheduler
             {
                 control.FilterByField(fieldName, value);
             }
+        }
+
+        public void Refresh()
+        {
+            ClearItems();
+            AddItems( ApplicationData.Get().calendarItemStore.getByDate(ItemDate.Date));
         }
     }
 }

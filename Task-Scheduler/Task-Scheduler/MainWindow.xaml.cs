@@ -32,11 +32,13 @@ namespace Task_Scheduler
             appData = ApplicationData.Get();
             appData.LoadAll();
 
+            controlCalender.SetData(ref appData);
+            controlCalender.Refresh();
+
             CatagoryFilter.ItemsSource = appData.categoryStore.CalendarItems.Values;
 
             dataGridItems.Items.Clear();
-            Registry.SetUpRegistry();
-            controlCalender.SetData(ref appData);            
+            Registry.SetUpRegistry();            
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -181,6 +183,16 @@ namespace Task_Scheduler
 
                 //}
             }
+        }
+
+        public void Refresh()
+        {
+
+        }
+
+        private void btnRefres_Click(object sender, RoutedEventArgs e)
+        {
+            controlCalender.Refresh();
         }
     }
 }

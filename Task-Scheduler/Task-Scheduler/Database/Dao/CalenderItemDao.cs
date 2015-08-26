@@ -9,8 +9,8 @@ namespace Task_Scheduler
 {
     public class CalenderItemDao
     {
-        const string ADD_ITEM_SQL = "insert into " + DatabaseTables.CalendarItemTableName + " (Name, Type, Date, Time, Details, Complete) values (@Name,@Type,@Date,@Time, @Details, @Complete)";
-        const string UPDATE_ITEM_SQL = "update " + DatabaseTables.CalendarItemTableName + " set Name = @Name, Type = @Type, Date = @Date, Time=@Time, Complete = @Complete Details = @Details where id = @id";
+        const string ADD_ITEM_SQL = "insert into " + DatabaseTables.CalendarItemTableName + " (Name, Type, Date, Time, Details, Complete, CategoryId) values (@Name,@Type,@Date,@Time, @Details, @Complete, @CategoryId)";
+        const string UPDATE_ITEM_SQL = "update " + DatabaseTables.CalendarItemTableName + " set Name = @Name, Type = @Type, Date = @Date, Time=@Time, Complete = @Complete, Details = @Details, CategoryId=@CategoryId where id = @id";
         const string SELECT_ALL_ITEMS_SQL = "Select * From " + DatabaseTables.CalendarItemTableName;
         const string SELECT_ALL_NONE_COMPLETE_ITEMS_SQL = "Select * From " + DatabaseTables.CalendarItemTableName + " where Complete=0";
         const string SELECT_ITEM_SQL = "";
@@ -53,6 +53,8 @@ namespace Task_Scheduler
                 command.Parameters.AddWithValue("@Time", dto.ItemDate.TimeOfDay.ToString());
                 command.Parameters.AddWithValue("@Complete", dto.done);
                 command.Parameters.AddWithValue("@Details", dto.Details);
+                command.Parameters.AddWithValue("@CategoryId", dto.categoryId);                
+
                 dto.id = command.ExecuteNonQuery();
             }
 
@@ -97,6 +99,8 @@ namespace Task_Scheduler
                 command.Parameters.AddWithValue("@Time", dto.ItemDate.TimeOfDay.ToString());
                 command.Parameters.AddWithValue("@Complete", dto.done);
                 command.Parameters.AddWithValue("@Details", dto.Details);
+                command.Parameters.AddWithValue("@CategoryId", dto.categoryId);
+                command.Parameters.AddWithValue("@id", dto.id);
                 command.ExecuteNonQuery();
             }
 
@@ -155,6 +159,7 @@ namespace Task_Scheduler
             dto.Type = (CalendarItemType)Enum.Parse(typeof(CalendarItemType), read["Type"] as string);
             dto.id = Convert.ToInt32(read["id"]);
             dto.done = (read["Complete"] as bool?).Value;            
+            dto.categoryId = Convert.ToInt32(read["CategoryId"]);
 
             return dto;
         }
