@@ -85,5 +85,18 @@ namespace Task_Scheduler
 
             store.saveCalenderItems(xmlPath);
         }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.OriginalSource is System.Windows.Controls.TextBox) return;
+
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                if (e.Key == Key.N)
+                {
+                    newButton_Click(null, null);
+                }
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Scheduler"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
     <DockPanel>
         <!--<DockPanel DockPanel.Dock="Top">
             <ToolBar>
@@ -15,9 +15,11 @@
         <DataGrid DockPanel.Dock="Left" Name="dataGridTaskList">
             
         </DataGrid>-->
-        <Button DockPanel.Dock="Top" Name="newButton" Click="newButton_Click" HorizontalAlignment="Left" Content="New"/>
-        <Button DockPanel.Dock="Top" Name="Loadbtn" Click="Loadbtn_Click" HorizontalAlignment="Left" Content="Load"/>
-        <Button DockPanel.Dock="Top" Name="savebtn" Click="savebtn_Click" HorizontalAlignment="Left" Content="Save"/>
-        <local:CalenderControl x:Name="controlCalender" DockPanel.Dock="Bottom"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Name="newButton" Click="newButton_Click" HorizontalAlignment="Left" Content="New" Margin="3" />
+            <Button DockPanel.Dock="Right" Name="Loadbtn" Click="Loadbtn_Click" HorizontalAlignment="Left" Content="Load" Margin="3" />
+            <Button DockPanel.Dock="Right" Name="savebtn" Click="savebtn_Click" HorizontalAlignment="Left" Content="Save" Margin="3" />
+        </StackPanel>
+        <local:CalenderControl x:Name="controlCalender" />
     </DockPanel>
 </Window>

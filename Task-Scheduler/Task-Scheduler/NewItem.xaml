@@ -6,22 +6,29 @@
         xmlns:local="clr-namespace:Task_Scheduler"
         mc:Ignorable="d"
         Title="NewItem" Height="300" Width="300">
-    <DockPanel LastChildFill="false">
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-            <Label>Name</Label>
-            <TextBox Width="Auto" Name="name"/>
-        </DockPanel>
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-            <Label>Details</Label>
-            <TextBox Name="Details"/>
-        </DockPanel>
-        <DockPanel DockPanel.Dock="Top" LastChildFill="True">  
-            <Label></Label>
-                <DatePicker Name="date"></DatePicker>
-        </DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" >Name</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" Width="Auto" Name="name"/>
+        <Label Grid.Column="0" Grid.Row="1">Details</Label>
+        <TextBox Grid.Column="1" Grid.Row="1" Name="Details"/>
+        <Label Grid.Column="0" Grid.Row="2">Type</Label>
+        <ComboBox Grid.Column="1" Grid.Row="2" Name="comboType" />
+        <Label Grid.Column="0" Grid.Row="3">Date</Label>
+        <DatePicker Grid.Column="1" Grid.Row="3" Name="date"></DatePicker>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="OK" Name="btkOk" Click="btkOk_Click" Margin="3"/>
             <Button Content="Cancel" Name="btkCancel" Click="btkCancel_Click" Margin="3" />
         </StackPanel>
-    </DockPanel>
+    </Grid>
 </Window>

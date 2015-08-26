@@ -28,6 +28,23 @@ namespace Task_Scheduler
 
             this.item = item;
             lblTaskName.Content = item.Name;
+            lblType.Content = TypeToChar(item.Type);
+        }
+
+        public string TypeToChar(CalendarItemType type)
+        {
+            string charType = "";
+            switch (type)
+            {
+                case CalendarItemType.Event:
+                    charType = "E";
+                    break;
+                case CalendarItemType.Task:
+                    charType = "T";
+                    break;
+            }
+
+            return charType;
         }
 
         private void doneChk_Checked(object sender, RoutedEventArgs e)
