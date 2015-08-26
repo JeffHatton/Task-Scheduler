@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown">
     <DockPanel>
-        <!--<DockPanel DockPanel.Dock="Top">
-            <ToolBar>
-
-            </ToolBar>
-        </DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <ToolBarPanel>
+                <MenuItem Header="Edit">
+                    <MenuItem Header="Add Catagory" Click="AddCata_Click"/>
+                </MenuItem>
+            </ToolBarPanel>
+        </ToolBar>
         <DataGrid DockPanel.Dock="Left" Name="dataGridTaskList">
             
         </DataGrid>-->
