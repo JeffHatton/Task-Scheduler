@@ -21,7 +21,9 @@ namespace Task_Scheduler
     /// </summary>
     public partial class CalenderItemControl : UserControl
     {
-        CalenderItemDto item;        
+        CalenderItemDto item;
+
+        Point startPoint;  
 
         public CalenderItemControl(CalenderItemDto item)
         {
@@ -31,6 +33,9 @@ namespace Task_Scheduler
             lblTaskName.Content = item.Name;
             lblType.Content = TypeToChar(item.Type);
             Background = new SolidColorBrush(ApplicationData.Get().categoryStore.CalendarItems[item.categoryId].Color);
+            doneChk.Checked -= doneChk_Checked;
+            doneChk.IsChecked = item.done;
+            doneChk.Checked += doneChk_Checked;
         }
 
         public string TypeToChar(CalendarItemType type)
@@ -85,6 +90,36 @@ namespace Task_Scheduler
 
             if (info.GetValue(item, null).Equals(fieldValue)) Visibility = Visibility.Visible;
             else Visibility = Visibility.Collapsed;
+        }
+
+        private void UserControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+
+        private void UserControl_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                //// Get the dragged ListViewItem
+                //ListView listView = sender as ListView;
+                //ListViewItem listViewItem =
+                //    FindAnchestor<ListViewItem>((DependencyObject)e.OriginalSource);
+
+                //// Find the data behind the ListViewItem
+                //Contact contact = (Contact)listView.ItemContainerGenerator.
+                //    ItemFromContainer(listViewItem);
+
+                // Initialize the drag & drop operation
+                DataObject dragData = new DataObject("myFormat", item);
+                DragDrop.DoDragDrop(this, dragData, DragDropEffects.Move);
+            }
         }
     }
 }

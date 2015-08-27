@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Task_Scheduler"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Margin="1" MouseDoubleClick="UserControl_MouseDoubleClick">
+             d:DesignHeight="300" d:DesignWidth="300" Margin="1" 
+             MouseDoubleClick="UserControl_MouseDoubleClick" PreviewMouseLeftButtonDown="UserControl_PreviewMouseLeftButtonDown" PreviewMouseMove="UserControl_PreviewMouseMove">
     <DockPanel Margin="0,0,0,0" LastChildFill="True">
         <CheckBox Name="doneChk" IsChecked="False" Checked="doneChk_Checked" Unchecked="doneChk_Checked"/>
             <Label Name="lblType" FontSize="10" Margin="0" HorizontalAlignment="Left" Background="Gray"/>

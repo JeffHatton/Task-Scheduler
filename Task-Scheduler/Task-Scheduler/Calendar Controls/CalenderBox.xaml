@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Task_Scheduler"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True" Drop="UserControl_Drop" DragEnter="UserControl_DragEnter">
     <DockPanel>
         <Label DockPanel.Dock="Top" Name="lblDate" />
         <ScrollViewer Margin="0">

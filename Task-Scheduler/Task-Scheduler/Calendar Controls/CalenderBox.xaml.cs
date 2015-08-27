@@ -113,5 +113,33 @@ namespace Task_Scheduler
             ClearItems();
             AddItems( ApplicationData.Get().calendarItemStore.getByDate(ItemDate.Date));
         }
+
+        private void UserControl_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("myFormat") || sender == e.Source)
+            {
+                if (e.Data.GetData("myFormat") is CalenderItemDto)
+                {
+                    CalenderItemDto dto = e.Data.GetData("myFormat") as CalenderItemDto;
+
+                    if (dto.ItemDate.Date != this.ItemDate)
+                    {
+                        dto = new CalenderItemDto(dto);
+                        dto.ItemDate = this.ItemDate;
+
+                        ApplicationData.Get().calendarItemStore.UpdateItem(dto);
+                    }
+                }
+            }
+        }
+
+        private void UserControl_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("myFormat") ||
+                sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
     }
 }
