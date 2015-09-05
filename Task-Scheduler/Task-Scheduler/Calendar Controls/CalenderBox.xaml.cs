@@ -141,5 +141,23 @@ namespace Task_Scheduler
                 e.Effects = DragDropEffects.None;
             }
         }
+
+        private void UserControl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ContextMenu.Visibility = Visibility.Visible;
+        }
+
+        private void AddMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            CalenderItemDetailDialog dialog = new CalenderItemDetailDialog();
+            dialog.setDate(ItemDate.Date);
+
+            dialog.ShowDialog();
+            if (dialog.DialogResult.Value)
+            {
+                CalenderItemDto dto = dialog.GUIToObject();
+                ApplicationData.Get().calendarItemStore.AddItem(dto);
+            }
+        }
     }
 }

@@ -5,7 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Task_Scheduler"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True" Drop="UserControl_Drop" DragEnter="UserControl_DragEnter">
+             d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True" Drop="UserControl_Drop" DragEnter="UserControl_DragEnter" MouseRightButtonDown="UserControl_MouseRightButtonDown">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <ContextMenu.ItemsSource>
+                <CompositeCollection>
+                    <MenuItem Name="AddMenuItem" Header="Add New Item" Click="AddMenuItem_Click"/>
+                </CompositeCollection>
+            </ContextMenu.ItemsSource>
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <DockPanel>
         <Label DockPanel.Dock="Top" Name="lblDate" />
         <ScrollViewer Margin="0">

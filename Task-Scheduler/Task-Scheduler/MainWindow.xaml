@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Scheduler"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" KeyDown="Window_KeyDown"
+        Title="Get Shit Done" Height="350" Width="525" KeyDown="Window_KeyDown"
         Icon="Resources/CalendarIcon.png">
     <DockPanel>
         <Menu DockPanel.Dock="Top">

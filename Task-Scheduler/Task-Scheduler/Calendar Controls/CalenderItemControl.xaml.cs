@@ -121,6 +121,16 @@ namespace Task_Scheduler
                 DragDrop.DoDragDrop(this, dragData, DragDropEffects.Move);
             }
         }
+
+        private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //ApplicationData.Get().calendarItemStore
+        }
+
+        private void EditMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            UserControl_MouseDoubleClick(null, null);
+        }
     }
 }
 

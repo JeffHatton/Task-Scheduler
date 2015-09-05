@@ -10,8 +10,7 @@ namespace Task_Scheduler
     {
         public Dictionary<int, CatagoryDto> CalendarItems = new Dictionary<int, CatagoryDto>();
         Dictionary<int, CatagoryDto> modifiedItems = new Dictionary<int, CatagoryDto>();
-        Dictionary<int, CatagoryDto> newItems = new Dictionary<int, CatagoryDto>();
-        int currentId = 0;
+        int currentId = -1;
 
         public delegate void ItemAddedDel(CatagoryDto item);
         public delegate void ItemsAddedDel(List<CatagoryDto> items);
@@ -24,10 +23,16 @@ namespace Task_Scheduler
 
         }
 
+        public void Clear()
+        {
+            CalendarItems.Clear();
+            modifiedItems.Clear();
+        }
+
         public void saveItems()
         {
-            CatagoryDao.AddItems(newItems.Values.ToList());
             CatagoryDao.UpdateItems(modifiedItems.Values.ToList());
+            modifiedItems.Clear();
         }
 
         public void LoadCalenderItems()
@@ -42,7 +47,7 @@ namespace Task_Scheduler
             if (item.id == -1)
             {
                 item.id = currentId--;
-                newItems[item.id] = item;
+                CatagoryDao.AddItem(item);
             }
             else if (item.id <= currentId) currentId = item.id - 1;
             CalendarItems[item.id] = item;

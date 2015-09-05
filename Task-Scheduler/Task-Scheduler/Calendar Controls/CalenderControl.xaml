@@ -40,6 +40,31 @@
                     <Label Content="Saturday" Grid.Row="0" Grid.Column="6" />
                 </Grid>
             </TabItem>
+            <TabItem Header="Bi-Weekly">
+                <Grid Name="CalenderGridBiWeek" ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Sunday" Grid.Row="0" Grid.Column="0" />
+                    <Label Content="Monday" Grid.Row="0" Grid.Column="1" />
+                    <Label Content="Tuesday" Grid.Row="0" Grid.Column="2" />
+                    <Label Content="Wednesday" Grid.Row="0" Grid.Column="3" />
+                    <Label Content="Thursday" Grid.Row="0" Grid.Column="4" />
+                    <Label Content="Friday" Grid.Row="0" Grid.Column="5" />
+                    <Label Content="Saturday" Grid.Row="0" Grid.Column="6" />
+                </Grid>
+            </TabItem>
             <TabItem  Header="Month">
                 <Grid Name="CalenderGridMonth" ShowGridLines="True">
                     <Grid.ColumnDefinitions>

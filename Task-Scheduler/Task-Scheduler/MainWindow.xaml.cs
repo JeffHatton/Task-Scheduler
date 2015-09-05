@@ -192,6 +192,8 @@ namespace Task_Scheduler
 
         private void btnRefres_Click(object sender, RoutedEventArgs e)
         {
+
+            appData.Refresh();
             controlCalender.Refresh();
         }
     }

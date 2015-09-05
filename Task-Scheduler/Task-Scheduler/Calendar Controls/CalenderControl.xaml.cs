@@ -24,6 +24,7 @@ namespace Task_Scheduler
 
         Dictionary<DateTime, CalenderBox> MonthlyCalenderBoxes;
         Dictionary<DateTime, CalenderBox> WeeklyCalenderBoxes;
+        Dictionary<DateTime, CalenderBox> BiWeeklyCalenderBoxes;
         int month;
         int year;
 
@@ -33,6 +34,7 @@ namespace Task_Scheduler
 
             MonthlyCalenderBoxes = new Dictionary<DateTime, CalenderBox>();
             WeeklyCalenderBoxes = new Dictionary<DateTime, CalenderBox>();
+            BiWeeklyCalenderBoxes = new Dictionary<DateTime, CalenderBox>();
         }
 
         public void SetData(ref ApplicationData data)
@@ -47,6 +49,11 @@ namespace Task_Scheduler
         {
             CalendarItemStore store = appData.calendarItemStore;
             foreach (CalenderBox box in MonthlyCalenderBoxes.Values)
+            {
+                box.Refresh();
+            }
+
+            foreach (CalenderBox box in BiWeeklyCalenderBoxes.Values)
             {
                 box.Refresh();
             }
@@ -76,6 +83,7 @@ namespace Task_Scheduler
         {
             if (MonthlyCalenderBoxes.ContainsKey(item.ItemDate.Date)) MonthlyCalenderBoxes[item.ItemDate.Date].AddItem(item);
             if (WeeklyCalenderBoxes.ContainsKey(item.ItemDate.Date)) WeeklyCalenderBoxes[item.ItemDate.Date].AddItem(item);
+            if (BiWeeklyCalenderBoxes.ContainsKey(item.ItemDate.Date)) BiWeeklyCalenderBoxes[item.ItemDate.Date].AddItem(item);
             if (CalenderBoxDay.ItemDate == item.ItemDate.Date) CalenderBoxDay.AddItem(item);
         }
 
@@ -110,6 +118,7 @@ namespace Task_Scheduler
                     if (currentDay.CompareTo(DateTime.Now.Date) < 0) box.Background = Brushes.Gray;
 
                     MonthlyCalenderBoxes[currentDay.Date] = box;
+
                     currentDay = currentDay.AddDays(1);                    
                 }
             }
@@ -118,23 +127,43 @@ namespace Task_Scheduler
             // Week
             //
             time = time.Subtract(new TimeSpan((int)time.DayOfWeek, 0, 0, 0));
-            for (int day = 0; day < 7; day++)
+            for (int week = 0; week < 2; week++)
             {
-                CalenderBox box = new CalenderBox(time);
-                Grid.SetRow(box, 1);
-                Grid.SetColumn(box, day);
-                
-                CalenderGridWeek.Children.Add(box);
-                WeeklyCalenderBoxes[box.ItemDate.Date] = box;
-                time = time.AddDays(1);
+                for (int day = 0; day < 7; day++)
+                {
+                    CalenderBox box = new CalenderBox(time);
+                    Grid.SetRow(box, week + 1);
+                    Grid.SetColumn(box, day);
 
-                if (time.CompareTo(DateTime.Now) < 0) box.Background = Brushes.Gray;
+                    CalenderGridBiWeek.Children.Add(box);
+                    BiWeeklyCalenderBoxes[time.Date] = box;                    
+
+                    if (time.CompareTo(DateTime.Now.Date) < 0) box.Background = Brushes.Gray;
+
+                    if (week < 1)
+                    {
+                        CalenderBox box2 = new CalenderBox(time);
+                        Grid.SetRow(box2, 1);
+                        Grid.SetColumn(box2, day);
+
+                        CalenderGridWeek.Children.Add(box2);
+                        WeeklyCalenderBoxes[box.ItemDate.Date] = box2;
+                        if (time.CompareTo(DateTime.Now.Date) < 0) box2.Background = Brushes.Gray;
+                    }
+
+                    time = time.AddDays(1);
+                }
             }
         }
 
         public void setAllVisible(bool visible)
         {
             foreach (CalenderBox box in MonthlyCalenderBoxes.Values)
+            {
+                box.setAllItemsVisible(visible);
+            }
+
+            foreach (CalenderBox box in BiWeeklyCalenderBoxes.Values)
             {
                 box.setAllItemsVisible(visible);
             }
@@ -154,7 +183,11 @@ namespace Task_Scheduler
                 box.FilterByField(fieldName, value);
             }
 
-            foreach (CalenderBox box in WeeklyCalenderBoxes.Values)
+            foreach (CalenderBox box in BiWeeklyCalenderBoxes.Values)
+            {
+                box.FilterByField(fieldName, value);
+            }
+                foreach (CalenderBox box in WeeklyCalenderBoxes.Values)
             {
                 box.FilterByField(fieldName, value);
             }

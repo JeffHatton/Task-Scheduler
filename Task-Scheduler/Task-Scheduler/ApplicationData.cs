@@ -32,9 +32,21 @@ namespace Task_Scheduler
 
         public void LoadAll()
         {
-            calendarItemStore.LoadCalenderItems();
             categoryStore.LoadCalenderItems();
+            calendarItemStore.LoadCalenderItems();            
         }
 
+        public void ClearAll()
+        {
+            calendarItemStore.Clear();
+            categoryStore.Clear();
+        }
+
+        public void Refresh()
+        {
+            saveAll();
+            ClearAll();
+            LoadAll();
+        }
     }
 }

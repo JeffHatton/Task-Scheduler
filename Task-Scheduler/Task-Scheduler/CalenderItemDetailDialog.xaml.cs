@@ -24,6 +24,11 @@ namespace Task_Scheduler
         bool _ReadOnly;
         public bool ReadOnly { get { return _ReadOnly; } set { SetReadonly(value); } }
 
+        public void setDate(DateTime dateTime)
+        {
+            date.SelectedDate = dateTime;
+        }
+
         public CalenderItemDetailDialog()
         {
             InitializeComponent();
