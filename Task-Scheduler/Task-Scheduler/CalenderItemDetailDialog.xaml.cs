@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,7 +68,14 @@ namespace Task_Scheduler
             if (Categorydto != null)
             {
                 dto.categoryId = Categorydto.id;
-            }            
+            }
+
+            string[] files = filesTextBox.Text.Split('\n');
+
+            foreach (string file in files)
+            {
+                dto.filePaths.Add(file);
+            }
 
             return dto;
         }
@@ -85,6 +93,17 @@ namespace Task_Scheduler
             {
                 comboCategory.SelectedValue = data.categoryStore.CalendarItems[dto.categoryId];
             }
+
+            string filepaths = "";
+
+            foreach (string file in dto.filePaths)
+            {
+                filepaths += file + "\n";
+            }
+
+            filepaths = filepaths.Trim('\n');
+
+            filesTextBox.Text = filepaths;
         }
 
         public void SetReadonly(bool Readonly)
@@ -96,6 +115,37 @@ namespace Task_Scheduler
             date.IsEnabled = !Readonly;
             comboCategory.IsEnabled = !Readonly;
             comboType.IsEnabled = !Readonly;
+        }
+
+        private void btnFileSelector_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
+            
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string file = dialog.FileName;
+
+                filesTextBox.Text = file;
+            }
+        }
+
+        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        {
+            string[] filePaths = filesTextBox.Text.Split('\n');
+
+            foreach (string file in filePaths)
+            {
+                if (System.IO.Path.IsPathRooted(file))
+                {
+                    if (File.Exists(file)) System.Diagnostics.Process.Start(file);
+                }
+                else
+                {
+                    ArchiveManager.openArchiveFile(file);
+                }
+                
+            }
         }
     }
 }

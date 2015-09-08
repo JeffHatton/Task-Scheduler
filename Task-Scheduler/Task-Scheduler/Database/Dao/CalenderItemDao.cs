@@ -9,8 +9,8 @@ namespace Task_Scheduler
 {
     public class CalenderItemDao
     {
-        const string ADD_ITEM_SQL = "insert into " + DatabaseTables.CalendarItemTableName + " (Name, Type, Date, Time, Details, Complete, CategoryId) values (@Name,@Type,@Date,@Time, @Details, @Complete, @CategoryId)";
-        const string UPDATE_ITEM_SQL = "update " + DatabaseTables.CalendarItemTableName + " set Name = @Name, Type = @Type, Date = @Date, Time=@Time, Complete = @Complete, Details = @Details, CategoryId=@CategoryId where id = @id";
+        const string ADD_ITEM_SQL = "insert into " + DatabaseTables.CalendarItemTableName + " (Name, Type, Date, Time, Details, Complete, CategoryId, FilePaths) values (@Name,@Type,@Date,@Time, @Details, @Complete, @CategoryId, @filePaths)";
+        const string UPDATE_ITEM_SQL = "update " + DatabaseTables.CalendarItemTableName + " set Name = @Name, Type = @Type, Date = @Date, Time=@Time, Complete = @Complete, Details = @Details, CategoryId=@CategoryId, FilePaths = @FilePaths  where id = @id";
         const string SELECT_ALL_ITEMS_SQL = "Select * From " + DatabaseTables.CalendarItemTableName;
         const string SELECT_ALL_NONE_COMPLETE_ITEMS_SQL = "Select * From " + DatabaseTables.CalendarItemTableName + " where Complete=0";
         const string SELECT_ITEM_SQL = "";
@@ -54,6 +54,7 @@ namespace Task_Scheduler
                 command.Parameters.AddWithValue("@Complete", dto.done);
                 command.Parameters.AddWithValue("@Details", dto.Details);
                 command.Parameters.AddWithValue("@CategoryId", dto.categoryId);                
+                command.Parameters.AddWithValue("@FilePaths", dto.AddFilesToArchive());
 
                 dto.id = command.ExecuteNonQuery();
             }
@@ -101,6 +102,7 @@ namespace Task_Scheduler
                 command.Parameters.AddWithValue("@Details", dto.Details);
                 command.Parameters.AddWithValue("@CategoryId", dto.categoryId);
                 command.Parameters.AddWithValue("@id", dto.id);
+                command.Parameters.AddWithValue("@FilePaths", dto.AddFilesToArchive());
                 command.ExecuteNonQuery();
             }
 
@@ -160,6 +162,15 @@ namespace Task_Scheduler
             dto.id = Convert.ToInt32(read["id"]);
             dto.done = (read["Complete"] as bool?).Value;            
             dto.categoryId = Convert.ToInt32(read["CategoryId"]);
+
+
+            object ob = read["FilePaths"];
+            string pathstring =  ob as string;
+            string[] files = pathstring.Split(';');
+            foreach (string file in files)
+            {
+                dto.filePaths.Add(file);
+            }
 
             return dto;
         }

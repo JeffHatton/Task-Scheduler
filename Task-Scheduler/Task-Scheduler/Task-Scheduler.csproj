@@ -101,6 +101,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApplicationData.cs" />
+    <Compile Include="ArchiveManager.cs" />
     <Compile Include="CatagoryDetailWindow.xaml.cs">
       <DependentUpon>CatagoryDetailWindow.xaml</DependentUpon>
     </Compile>

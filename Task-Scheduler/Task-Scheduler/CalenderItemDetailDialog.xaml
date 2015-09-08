@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Scheduler"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="NewItem" Height="300" Width="300">
     <Grid>
@@ -12,6 +13,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -29,7 +31,13 @@
         <DatePicker Grid.Column="1" Grid.Row="3" Name="date"></DatePicker>
         <Label Grid.Column="0" Grid.Row="4">Catagory</Label>
         <ComboBox Grid.Column="1" Grid.Row="4" Name="comboCategory" DisplayMemberPath="Name"/>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Label Grid.Column="0" Grid.Row="5">Files</Label>
+        <DockPanel Grid.Column="1" Grid.Row="5" LastChildFill="True">
+            <Button Name="btnFileSelector" Click="btnFileSelector_Click" DockPanel.Dock="Right">...</Button>
+            <Button Name="btnOpen" Click="btnOpen_Click" DockPanel.Dock="Right">Open</Button>
+            <TextBox Name="filesTextBox"/>            
+        </DockPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="OK" Name="btkOk" Click="btkOk_Click" Margin="3"/>
             <Button Content="Cancel" Name="btkCancel" Click="btkCancel_Click" Margin="3" />
         </StackPanel>
