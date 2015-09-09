@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -130,6 +131,21 @@ namespace Task_Scheduler
         private void EditMenuItem_Click(object sender, RoutedEventArgs e)
         {
             UserControl_MouseDoubleClick(null, null);
+        }
+
+        private void OpenFileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (string file in item.filePaths)
+            {
+                if (System.IO.Path.IsPathRooted(file))
+                {
+                    if (File.Exists(file)) System.Diagnostics.Process.Start(file);
+                }
+                else
+                {
+                    ArchiveManager.openArchiveFile(file);
+                }
+            }
         }
     }
 }

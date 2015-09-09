@@ -13,6 +13,7 @@
                 <CompositeCollection>
                     <MenuItem Name="EditMenuItem" Header="Edit Item" Click="EditMenuItem_Click"/>
                     <MenuItem Name="DeleteMenuItem" Header="Delete Item" Click="DeleteMenuItem_Click"/>
+                    <MenuItem Name="OpenFileMenuItem" Header="Open Assoicated Files" Click="OpenFileMenuItem_Click"/>
                 </CompositeCollection>
             </ContextMenu.ItemsSource>
         </ContextMenu>

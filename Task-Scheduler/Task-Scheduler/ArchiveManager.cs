@@ -30,7 +30,15 @@ namespace Task_Scheduler
             string outputPath = Registry.GetRegKeyValue(Registry.RegistryKeys.OutputFile) + "\\" + ARCHIVE_PATH;
 
             if (!Directory.Exists(outputPath)) createArchive();
-            File.Copy(fullPath, outputPath  + "\\" + Path.GetFileName(fullPath)); 
+
+            try
+            {
+                File.Copy(fullPath, outputPath + "\\" + Path.GetFileName(fullPath), true);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
